@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue Task List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app" class="container">
+    <h1>{{title}}</h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Tasks list -->
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>Done</th>
+              <th>Task</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="task in tasks">
+              <td>
+                <input type="checkbox" v-model="task.done">
+              </td>
+
+              <td v-if="task.done">
+                <del>{{task.text}}</del>
+              </td>
+              <td v-else>
+                {{task.text}}
+              </td>
+
+              <td>
+                <button class="btn btn-outline-danger" v-on:click="deleteTask(task)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- New task form -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-white bg-dark">
+            Add a new task
+          </div>
+          <div class="card-body">
+            <form v-on:submit.prevent="addTask">
+             <div class="form-group">
+               <input class="form-control form-control-lg" v-model="newTask" type="text" placeholder="New task">
+             </div>
+             <div class="form-group">
+               <button  type="submit" class="btn btn-outline-success btn-lg form-control form-control-lg">Add</button>
+             </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
